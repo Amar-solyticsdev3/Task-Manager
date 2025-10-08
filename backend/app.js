@@ -31,8 +31,6 @@ app.use(cors({
   credentials: true
 }));
 
-// Enable preflight requests
-app.options('*', cors());
 
 app.use(express.json());
 app.use(cookieParser());
