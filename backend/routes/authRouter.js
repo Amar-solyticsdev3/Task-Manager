@@ -19,9 +19,9 @@ authRouter.post('/upload-image', upload.single('image'), (req, res) => {
     return res.status(400).json({ message: 'No file uploaded!' });
   }
 
-  // Hardcoded backend URL
+  // Use your deployed backend URL (hardcoded)
   const imageUrl = `https://task-manager-sib3.onrender.com/uploads/${req.file.filename}`;
-  
+
   res.status(200).json({ imageUrl });
 });
 
