@@ -6,10 +6,10 @@ const uploadImage = async (imageFile) => {
   formData.append('image', imageFile);
 
   try {
-    const res = await axios.post(BASE_URL + '/auth/upload-image', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    const res = await axios.post(`${BASE_URL}/auth/upload-image`, formData, {
+      withCredentials: true, // send cookie along with request
     });
-    return res.data;
+    return res.data; // { imageUrl: '...' }
   } catch (error) {
     console.error('Error uploading the image', error);
     throw error;
