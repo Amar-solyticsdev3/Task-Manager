@@ -13,7 +13,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: task-manager-pgyyhrtyg-amar-kumars-projects-7055830c.vercel.app,
     credentials: true,
   })
 );
