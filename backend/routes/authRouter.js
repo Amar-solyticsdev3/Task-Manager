@@ -16,12 +16,14 @@ authRouter.put('/profile/edit', protect, updateUserProfile);
 
 authRouter.post('/upload-image', upload.single('image'), (req, res) => {
   if (!req.file) {
-    res.status(400).json({ message: 'No file uploaded!' });
+    return res.status(400).json({ message: 'No file uploaded!' });
   }
-  const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${
-    req.file.filename
-  }`;
+
+  // Hardcoded backend URL
+  const imageUrl = `https://task-manager-sib3.onrender.com/uploads/${req.file.filename}`;
+  
   res.status(200).json({ imageUrl });
 });
+
 
 module.exports = authRouter;
