@@ -13,7 +13,7 @@ const app = express();
 
 // List all allowed frontend URLs
 const allowedOrigins = [
-  'http://localhost:3000', // local dev
+  'http://localhost:5173', // local dev
   'https://task-manager-lyart-pi-26.vercel.app', // current Vercel frontend
   'https://task-manager-lfv7q1z9b-amar-kumars-projects-7055830c.vercel.app' // optional older deployment
 ];
