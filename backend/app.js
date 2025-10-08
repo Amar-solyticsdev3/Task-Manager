@@ -11,25 +11,24 @@ const reportRouter = require('./routes/reportRouter');
 
 const app = express();
 
-// List all allowed frontend URLs
+
+
 const allowedOrigins = [
-  'http://localhost:5173', // local dev
-  'https://task-manager-lyart-pi-26.vercel.app', // current Vercel frontend
-  'https://task-manager-lfv7q1z9b-amar-kumars-projects-7055830c.vercel.app' // optional older deployment
+  'http://localhost:5173',
+  /^https:\/\/task-manager-.*\.vercel\.app$/ // all Vercel frontends dynamically
 ];
 
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin) return callback(null, true); // allow Postman / curl
-    // Allow localhost
-    if (origin === 'http://localhost:3000') return callback(null, true);
-    // Allow any Vercel deployment of your project
-    if (/^https:\/\/task-manager-.*\.vercel\.app$/.test(origin)) return callback(null, true);
-    
+    if (allowedOrigins.some(o => o instanceof RegExp ? o.test(origin) : o === origin)) {
+      return callback(null, true);
+    }
     return callback(new Error('CORS policy does not allow this origin'), false);
   },
   credentials: true
 }));
+
 
 
 app.use(express.json());
