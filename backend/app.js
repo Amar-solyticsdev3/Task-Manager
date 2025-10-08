@@ -13,7 +13,12 @@ const app = express();
 
 app.use(
   cors({
-    origin: task-manager-pgyyhrtyg-amar-kumars-projects-7055830c.vercel.app,
+    origin:[
+  'https://task-manager-lfv7q1z9b-amar-kumars-projects-7055830c.vercel.app', // latest deployment
+  'https://task-manager-lyart-pi-26.vercel.app', // previous domain (if still used)
+  'http://localhost:5173' ,// local development
+      *
+],
     credentials: true,
   })
 );
