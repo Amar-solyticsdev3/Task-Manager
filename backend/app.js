@@ -11,35 +11,46 @@ const reportRouter = require('./routes/reportRouter');
 
 const app = express();
 
-app.use(
-  cors({
-    origin:[
-  'https://task-manager-lfv7q1z9b-amar-kumars-projects-7055830c.vercel.app', // latest deployment
-  'https://task-manager-lyart-pi-26.vercel.app', // previous domain (if still used)
-  'http://localhost:5173' ,// local development
-      *
-],
-    credentials: true,
-  })
-);
+// List all allowed frontend URLs
+const allowedOrigins = [
+  'http://localhost:3000', // local dev
+  'https://task-manager-lyart-pi-26.vercel.app', // current Vercel frontend
+  'https://task-manager-lfv7q1z9b-amar-kumars-projects-7055830c.vercel.app' // optional older deployment
+];
+
+app.use(cors({
+  origin: function(origin, callback) {
+    // allow non-browser requests (like Postman)
+    if (!origin) return callback(null, true);
+    if (!allowedOrigins.includes(origin)) {
+      return callback(new Error('CORS policy does not allow this origin'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(cookieParser());
 
+// API routes
 app.use('/api/auth', authRouter);
 app.use('/api/task', taskRouter);
 app.use('/api/report', reportRouter);
 app.use('/api/user', userRouter);
+
+// Serve uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const PORT = process.env.PORT;
+// Connect to MongoDB and start server
+const PORT = process.env.PORT || 7000;
 connectDB()
   .then(() => {
     console.log('MongoDB connected!');
     app.listen(PORT, () => {
-      console.log(`Connection running on port ${PORT} ...`);
+      console.log(`Server running on port ${PORT} ...`);
     });
   })
   .catch((err) => {
-    console.error('Error connecting to MongoDB');
+    console.error('Error connecting to MongoDB', err);
   });
