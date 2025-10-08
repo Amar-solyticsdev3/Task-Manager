@@ -20,15 +20,19 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
-    // allow non-browser requests (like Postman)
-    if (!origin) return callback(null, true);
-    if (!allowedOrigins.includes(origin)) {
-      return callback(new Error('CORS policy does not allow this origin'), false);
-    }
-    return callback(null, true);
+    if (!origin) return callback(null, true); // allow Postman / curl
+    // Allow localhost
+    if (origin === 'http://localhost:3000') return callback(null, true);
+    // Allow any Vercel deployment of your project
+    if (/^https:\/\/task-manager-.*\.vercel\.app$/.test(origin)) return callback(null, true);
+    
+    return callback(new Error('CORS policy does not allow this origin'), false);
   },
   credentials: true
 }));
+
+// Enable preflight requests
+app.options('*', cors());
 
 app.use(express.json());
 app.use(cookieParser());
