@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthLayout from '../../components/layouts/AuthLayout';
-import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
+// import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import Input from '../../components/Inputs/Input';
 import { Link, useNavigate } from 'react-router-dom';
 import { validationEmail } from '../../utils/helper';
@@ -8,7 +8,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../utils/apiPaths';
 import { useDispatch } from 'react-redux';
 import { addUser} from '../../utils/userSlice';
-import uploadImage from '../../utils/uploadImages';
+// import uploadImage from '../../utils/uploadImages';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -16,7 +16,7 @@ const SignUp = () => {
   const [emailId, setEmailId] = useState('');
   const [password, setPassword] = useState('');
   const [adminInviteToken, setAdminInviteToken] = useState('');
-  const [profilePic, setProfilePic] = useState(null);
+  // const [profilePic, setProfilePic] = useState(null);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,10 +39,10 @@ const SignUp = () => {
     // if login successful, clear error
     setError('');
     try {
-      if (profilePic) {
-        const imageUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imageUploadRes.imageUrl || '';
-      }
+      // if (profilePic) {
+      //   const imageUploadRes = await uploadImage(profilePic);
+      //   profileImageUrl = imageUploadRes.imageUrl || '';
+      // }
       const res = await axios.post(
         BASE_URL + '/auth/signup',
         {
@@ -80,7 +80,8 @@ const SignUp = () => {
         </h3>
 
         <form onSubmit={(e) => e.preventDefault()}>
-          <ProfilePhotoSelector images={profilePic} setImages={setProfilePic} />
+          {/* <ProfilePhotoSelector images={profilePic} setImages={setProfilePic} /> */}
+
           <div className=" w-[90%] grid grid-cols-1 md:grid-cols-2  gap-3 ml-5">
             <Input
               type="text"

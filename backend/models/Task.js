@@ -39,12 +39,10 @@ const taskSchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  createdAt: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
   attachments: {
     type: String,
   },
