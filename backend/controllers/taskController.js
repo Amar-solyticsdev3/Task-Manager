@@ -95,7 +95,6 @@ const createTask = async (req, res) => {
       priority,
       dueDate,
       assignedTo,
-      createdAt: req.user._id,
       todoCheckList,
       attachments,
     });
@@ -336,7 +335,7 @@ const getUserDashboardData = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Server Error!', error: error.message });
   }
-};  
+};
 
 module.exports = {
   getTasks,
